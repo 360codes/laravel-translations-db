@@ -1,14 +1,14 @@
 <?php namespace Hpolthof\Translation;;
 
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Translation\LoaderInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Illuminate\Contracts\Translation\Loader;
+use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 
-class Translator extends \Illuminate\Translation\Translator implements TranslatorInterface {
+class Translator extends \Illuminate\Translation\Translator implements TranslatorContract {
 
 	protected $app = null;
 
-	public function __construct(LoaderInterface $database, LoaderInterface $loader, $locale, Application $app)
+	public function __construct(Loader $database, Loader $loader, $locale, Application $app)
 	{
 		$this->database = $database;
 		$this->app = $app;
@@ -36,7 +36,10 @@ class Translator extends \Illuminate\Translation\Translator implements Translato
 		// Here we will get the locale that should be used for the language line. If one
 		// was not passed, we will use the default locales which was given to us when
 		// the translator was instantiated. Then, we can load the lines and return.
-		foreach ($this->parseLocale($locale) as $locale)
+        $locales = $fallback ? $this->localeArray($locale)
+            : [$locale ?: $this->locale];
+
+		foreach ($locales as $locale)
 		{
 			$this->load($namespace, $group, $locale);
 

@@ -1,9 +1,9 @@
 <?php namespace Hpolthof\Translation;
 
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Translation\LoaderInterface;
+use Illuminate\Contracts\Translation\Loader;
 
-class DatabaseLoader implements LoaderInterface {
+class DatabaseLoader implements Loader {
 
     protected $_app = null;
 
@@ -83,5 +83,26 @@ class DatabaseLoader implements LoaderInterface {
                 \DB::table('translations')->where('id', $item->id)->update($data);
             }
         }
+    }
+
+    /**
+     * Get an array of all the registered namespaces.
+     * This function will not be used but is required
+     * due to the LoaderInterface.
+     * We'll just leave it here as is.
+     *
+     * @return void
+     */
+    public function namespaces() {}
+
+    /**
+     * Add a new JSON path to the loader.
+     *
+     * @param  string $path
+     * @return void
+     */
+    public function addJsonPath($path)
+    {
+        // TODO: Implement addJsonPath() method.
     }
 }
