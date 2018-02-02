@@ -1,5 +1,5 @@
 {
-  "name": "hpolthof/laravel-translations-db",
+  "name": "360codes/laravel-translations-db",
   "description": "A database translations implementation for Laravel 5.",
   "license": "GPL2",
   "keywords": ["laravel", "translation", "localization", "database"],
